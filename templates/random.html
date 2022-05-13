@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %} Random Emoji Generator {% endblock %}
+{% block nav %}<div class="nav"><button><a href="{{url_for('search')}}" >Search Emojis</a></button></div>{% endblock %}
+{% block body %} 
+<div class="output"> 
+    <label>Random Emoji</label>
+   <form action="/" method="GET">
+       <div class="display">
+           <p>{{ htmlcode|safe }} </p>
+        </div>
+        <div class="display">
+            <input type="submit" value="Generate Random Emoji">
+        </div>
+   </form>
+</div>
+{% endblock %}

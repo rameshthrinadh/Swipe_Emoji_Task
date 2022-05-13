@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Search Emojis  {% endblock %}
+{% block nav %}<div class="nav"><button><a href="{{url_for('index')}}">Random Emoji</a></button></div>{% endblock %}
+{% block body %} 
+<div class="output"> 
+   <form action="/search/" method="POST">
+      <div class="search">
+          <label>Search Emojis</label><br><br>
+        <input type="text" placeholder="Search Query" name="search" id="search">
+      </div>
+      <div class="matched">
+          <label>List of matched Emojis</label>
+          <br>
+          <p>
+             {% for data in data %}
+                 {{ data|safe }}
+             {% endfor %}
+          </p>
+      </div>
+   </form>
+</div>
+{% endblock %}
