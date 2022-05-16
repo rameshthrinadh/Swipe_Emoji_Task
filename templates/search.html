@@ -1,22 +1,42 @@
 {% extends 'base.html' %}
 {% block title %} Search Emojis  {% endblock %}
-{% block nav %}<div class="nav"><button><a href="{{url_for('index')}}">Random Emoji</a></button></div>{% endblock %}
-{% block body %} 
+{% block body %}
 <div class="output"> 
-   <form action="/search/" method="POST">
+   <form action="/search/" method="POST" id="random_form">
       <div class="search">
           <label>Search Emojis</label><br><br>
-        <input type="text" placeholder="Search Query" name="search" id="search">
+        <input type="text" placeholder="Search Query" name="search" id="search" onkeyup="results()">
       </div>
       <div class="matched">
           <label>List of matched Emojis</label>
           <br>
-          <p>
-             {% for data in data %}
-                 {{ data|safe }}
-             {% endfor %}
+          <p id="list">
+            
           </p>
       </div>
    </form>
 </div>
+
+
+<script>
+   function results(){
+      var search = document.getElementById("search").value;
+      list={{ data|safe }}
+      console.log(search);
+      var count=0;
+      document.getElementById("list").innerHTML="";
+      for(var i=0;i<list.length;i++){
+         if(list[i][0].includes(search)){
+            count++;
+            document.getElementById("list").innerHTML+=list[i][1];
+         }
+      }
+      if(count==0){
+         document.getElementById("list").innerHTML="No Emojis Found";
+      }
+   }
+</script>
+
+
+
 {% endblock %}

@@ -1,16 +1,49 @@
 {% extends 'base.html' %}
 {% block title %} Random Emoji Generator {% endblock %}
-{% block nav %}<div class="nav"><button><a href="{{url_for('search')}}" >Search Emojis</a></button></div>{% endblock %}
-{% block body %} 
+{% block body %}
+<div id="output">
 <div class="output"> 
     <label>Random Emoji</label>
-   <form action="/" method="GET">
+   <form action="/" method="GET" id="random_form">
        <div class="display">
-           <p>{{ htmlcode|safe }} </p>
+           <p id="emojis">{{ htmlcode|safe }} </p>
         </div>
         <div class="display">
             <input type="submit" value="Generate Random Emoji">
         </div>
    </form>
 </div>
+
+<div id="sear">
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+$(document).on('submit','#random_form',function(e){
+e.preventDefault();
+$.ajax({
+type:'GET',
+url:'/random',    
+success:function(response)
+{
+$("#emojis").html(response);
+}
+})
+});
+
+$(document).ready(function(e){
+    $.ajax({
+        type:'GET',
+        url:'/search',    
+        success:function(response)
+        {
+            $("#sear").html(response);
+        }
+    })
+})
+</script>
 {% endblock %}
